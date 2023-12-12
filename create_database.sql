@@ -10,11 +10,12 @@ Entity VARCHAR(20),
 Code VARCHAR(3),
 Year YEAR,
 `Cigarette consumption per smoker per day (IHME, GHDx (2012))` DOUBLE,
-`Cigarette consumption per smoker per day (IHME, GHDx (2012))` DOUBLE,
+`Consumption per smoker per day upper bound (IHME, GHDx (2012))` DOUBLE, 
 `Consumption per smoker per day lower bound (IHME, GHDx (2012))` DOUBLE
 );
 
 /*Load csv file into table*/
+/*To do this, you need to have into the /etc/mysql/my.cnf file the lines "[mysqld] /n local_infile=1" and start mysql with --local-infile=1*/
 /*Entity,Code,Year,
 "Cigarette consumption per smoker per day (IHME, GHDx (2012))","Consumption per smoker per day upper bound (IHME, GHDx (2012))","Consumption per smoker per day lower bound (IHME, GHDx (2012))"*/
 LOAD DATA LOCAL INFILE './data/consumption-per-smoker-per-day-bounds.csv'
@@ -27,3 +28,8 @@ IGNORE 1 ROWS
  `Cigarette consumption per smoker per day (IHME, GHDx (2012))`, 
  `Consumption per smoker per day upper bound (IHME, GHDx (2012))`, 
  `Consumption per smoker per day lower bound (IHME, GHDx (2012))`);
+
+/*Rename columns to make them more readable*/
+ALTER TABLE consumption RENAME COLUMN `Cigarette consumption per smoker per day (IHME, GHDx (2012))` TO consumption_day;
+ALTER TABLE consumption RENAME COLUMN `Consumption per smoker per day upper bound (IHME, GHDx (2012))` TO consumption_day_upper;
+ALTER TABLE consumption RENAME COLUMN `Consumption per smoker per day lower bound (IHME, GHDx (2012))` TO consumption_day_lower;
