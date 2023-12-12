@@ -6,20 +6,24 @@ USE smokers;
 /* Entity,Code,Year,"Cigarette consumption per smoker per day (IHME, GHDx (2012))","Consumption per smoker per day upper bound (IHME, GHDx (2012))","Consumption per smoker per day lower bound (IHME, GHDx (2012))"*/
 CREATE TABLE IF NOT EXISTS consumption(
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-entity VARCHAR(20),
+Entity VARCHAR(20),
 Code VARCHAR(3),
 Year YEAR,
-consumption_day DOUBLE,
-consumption_upper DOUBLE,
-consumption_lower DOUBLE
+`Cigarette consumption per smoker per day (IHME, GHDx (2012))` DOUBLE,
+`Cigarette consumption per smoker per day (IHME, GHDx (2012))` DOUBLE,
+`Consumption per smoker per day lower bound (IHME, GHDx (2012))` DOUBLE
 );
 
 /*Load csv file into table*/
-LOAD DATA LOCAL INFILE './data/consumption-per-smoker-per-day-bounds.csv' 
-INTO TABLE consumption 
-FIELDS TERMINATED BY ',' 
+/*Entity,Code,Year,
+"Cigarette consumption per smoker per day (IHME, GHDx (2012))","Consumption per smoker per day upper bound (IHME, GHDx (2012))","Consumption per smoker per day lower bound (IHME, GHDx (2012))"*/
+LOAD DATA LOCAL INFILE './data/consumption-per-smoker-per-day-bounds.csv'
+INTO TABLE consumption
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
-IGNORE 1 ROWS(`Entity`,`Code`,`Year`,`Cigarette consumption per smoker per day (IHME, GHDx (2012))`,
-  `Consumption per smoker per day upper bound (IHME, GHDx (2012))`,
-  `Consumption per smoker per day lower bound (IHME, GHDx (2012))`
-);
+IGNORE 1 ROWS
+(`Entity`, `Code`, `Year`, 
+ `Cigarette consumption per smoker per day (IHME, GHDx (2012))`, 
+ `Consumption per smoker per day upper bound (IHME, GHDx (2012))`, 
+ `Consumption per smoker per day lower bound (IHME, GHDx (2012))`);
