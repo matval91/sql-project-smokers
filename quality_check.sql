@@ -1,3 +1,30 @@
+/*Check consumption table has null values in the entity
+This is the output
++---------------+
+| null_entities |
++---------------+
+|             0 |
++---------------+
+1 row in set (0.00 sec)
+*/
+SELECT COUNT(Entity) AS null_entities
+FROM consumption
+WHERE Entity IS NULL;
+
+/*Check consumption table has null values in the consumption_day
+This is the output
++----------------------+
+| null_consumption_day |
++----------------------+
+|                    0 |
++----------------------+
+1 row in set (0.01 sec)
+*/
+SELECT COUNT(consumption_day) AS null_consumption_day
+FROM consumption
+WHERE consumption_day IS NULL;
+
+
 /*Check a table has unique values in the entity
 This is the output
 +----------------+-----------------+
